@@ -514,27 +514,3 @@ catch (TaskCanceledException)
 | Installationsgröße | ~15 MB | ~80 MB | ~25 MB | ~30 MB | ~10 MB | ~15 MB |
 
 
-MIT License
-
-Copyright (c) 2024 DÜSK Contributors
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-[...]
-```
-
----
-
-## 📞 Support & Kontakt
-
-- **Issues:** [GitHub Issues](https://github.com/pkoopongithub/duesk-wpf/issues)
-- **API-Dokumentation:** [https://paul-koop.org/api/docs](https://paul-koop.org/api/docs)
-- **.NET Dokumentation:** [https://docs.microsoft.com/en-us/dotnet/](https://docs.microsoft.com/en-us/dotnet/)
-
----
-
-*Letzte Aktualisierung: April 2026*
