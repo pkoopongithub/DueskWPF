@@ -1,0 +1,135 @@
+<Window x:Class="DueskWPF.Views.ProfileDetailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        Title="Profil Details" Height="850" Width="1100"
+        WindowStartupLocation="CenterOwner" Background="#F5F5F5">
+    
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <Border Grid.Row="0" Background="White" Padding="15" Margin="0,0,0,15" CornerRadius="8">
+            <StackPanel>
+                <TextBlock x:Name="NameText" FontSize="22" FontWeight="Bold"/>
+                <TextBlock x:Name="InfoText" FontSize="13" Foreground="#666" Margin="0,5,0,0"/>
+                
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <RadioButton x:Name="HSRadio" Content="HS (Hauptschule)" IsChecked="True" 
+                                 Margin="0,0,20,0" Checked="NormType_Changed"/>
+                    <RadioButton x:Name="FSRadio" Content="FS (Förderschule)" 
+                                 Checked="NormType_Changed"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        
+        <!-- Tab Control -->
+        <TabControl Grid.Row="1">
+            <!-- SE Tab -->
+            <TabItem Header="📊 Selbsteinschätzung">
+                <ScrollViewer>
+                    <StackPanel>
+                        <Border Background="White" Padding="15" Margin="0,0,0,15" CornerRadius="8">
+                            <StackPanel>
+                                <TextBlock Text="Kompetenzwerte" FontWeight="Bold" FontSize="16" Margin="0,0,0,15"/>
+                                <DataGrid x:Name="SETable" AutoGenerateColumns="False" IsReadOnly="True" 
+                                          RowHeight="35" BorderThickness="0" GridLinesVisibility="None"/>
+                            </StackPanel>
+                        </Border>
+                        
+                        <Border Background="White" Padding="15" CornerRadius="8">
+                            <StackPanel>
+                                <TextBlock Text="Profilverlauf" FontWeight="Bold" FontSize="16" Margin="0,0,0,15"/>
+                                <lvc:CartesianChart x:Name="SEChart" Height="320"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            
+            <!-- FE Tab -->
+            <TabItem Header="👥 Fremdeinschätzung">
+                <ScrollViewer>
+                    <StackPanel>
+                        <Border Background="White" Padding="15" Margin="0,0,0,15" CornerRadius="8">
+                            <StackPanel>
+                                <TextBlock Text="Kompetenzwerte" FontWeight="Bold" FontSize="16" Margin="0,0,0,15"/>
+                                <DataGrid x:Name="FETable" AutoGenerateColumns="False" IsReadOnly="True" 
+                                          RowHeight="35" BorderThickness="0" GridLinesVisibility="None"/>
+                            </StackPanel>
+                        </Border>
+                        
+                        <Border Background="White" Padding="15" CornerRadius="8">
+                            <StackPanel>
+                                <TextBlock Text="Profilverlauf" FontWeight="Bold" FontSize="16" Margin="0,0,0,15"/>
+                                <lvc:CartesianChart x:Name="FEChart" Height="320"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            
+            <!-- Statistik Tab -->
+            <TabItem Header="📈 Statistik">
+                <ScrollViewer>
+                    <StackPanel>
+                        <Border Background="White" Padding="15" Margin="0,0,0,15" CornerRadius="8">
+                            <StackPanel>
+                                <TextBlock Text="SE vs. FE Vergleich" FontWeight="Bold" FontSize="16" Margin="0,0,0,15"/>
+                                <lvc:CartesianChart x:Name="ComparisonChart" Height="380"/>
+                            </StackPanel>
+                        </Border>
+                        
+                        <Border Background="White" Padding="15" Margin="0,0,0,15" CornerRadius="8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                                    <TextBlock Text="Korrelation (r)" Foreground="#666" FontSize="13"/>
+                                    <TextBlock x:Name="CorrelationText" FontSize="36" FontWeight="Bold" 
+                                               Foreground="{StaticResource PrimaryBrush}" 
+                                               HorizontalAlignment="Center" Margin="0,10,0,5"/>
+                                    <TextBlock x:Name="CorrelationDesc" FontSize="12" Foreground="#666"/>
+                                </StackPanel>
+                                
+                                <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                                    <TextBlock Text="Übereinstimmung" Foreground="#666" FontSize="13"/>
+                                    <TextBlock x:Name="AgreementText" FontSize="36" FontWeight="Bold" 
+                                               Foreground="{StaticResource SuccessBrush}" 
+                                               HorizontalAlignment="Center" Margin="0,10,0,5"/>
+                                    <TextBlock x:Name="AgreementDesc" FontSize="12" Foreground="#666"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        
+                        <Border Background="White" Padding="15" CornerRadius="8">
+                            <StackPanel>
+                                <TextBlock Text="Interpretation" FontWeight="Bold" FontSize="16" Margin="0,0,0,15"/>
+                                <TextBlock x:Name="InterpretationText" TextWrapping="Wrap" LineHeight="1.6" FontSize="13"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            
+            <!-- Items Tab -->
+            <TabItem Header="📋 Alle Items">
+                <DataGrid x:Name="ItemsTable" AutoGenerateColumns="False" IsReadOnly="True" 
+                          RowHeight="25" Margin="10" BorderThickness="0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="#" Binding="{Binding Index}" Width="50"/>
+                        <DataGridTextColumn Header="Item" Binding="{Binding Name}" Width="450"/>
+                        <DataGridTextColumn Header="SE" Binding="{Binding SE}" Width="60"/>
+                        <DataGridTextColumn Header="FE" Binding="{Binding FE}" Width="60"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

@@ -1,0 +1,51 @@
+<Window x:Class="DueskWPF.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DÜSK - Anmeldung" Height="450" Width="400"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#F5F5F5">
+    
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Logo -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,40" HorizontalAlignment="Center">
+            <TextBlock Text="DÜSK" FontSize="48" FontWeight="Bold" 
+                       Foreground="{StaticResource PrimaryBrush}"/>
+            <TextBlock Text="Düsseldorfer Schülerinventar" FontSize="14" 
+                       Foreground="Gray" TextAlignment="Center"/>
+        </StackPanel>
+        
+        <!-- Error Message -->
+        <TextBlock x:Name="ErrorText" Grid.Row="1" Foreground="{StaticResource ErrorBrush}" 
+                   TextWrapping="Wrap" Margin="0,0,0,15" Visibility="Collapsed"
+                   TextAlignment="Center"/>
+        
+        <!-- Form -->
+        <StackPanel Grid.Row="2">
+            <TextBlock Text="Benutzername" Margin="0,0,0,5" FontWeight="SemiBold"/>
+            <TextBox x:Name="UsernameBox" Text="gast" Margin="0,0,0,15" 
+                     Padding="10" BorderBrush="#DDD" BorderThickness="1"/>
+            
+            <TextBlock Text="Passwort" Margin="0,0,0,5" FontWeight="SemiBold"/>
+            <PasswordBox x:Name="PasswordBox" Margin="0,0,0,20" 
+                         Padding="10" BorderBrush="#DDD" BorderThickness="1"/>
+        </StackPanel>
+        
+        <!-- Login Button -->
+        <Button x:Name="LoginButton" Grid.Row="3" Content="Anmelden" 
+                Background="{StaticResource PrimaryBrush}" Foreground="White" 
+                Padding="12" FontSize="16" FontWeight="SemiBold" BorderThickness="0"
+                Cursor="Hand" Click="LoginButton_Click"/>
+        
+        <!-- Footer -->
+        <TextBlock Grid.Row="4" Text="Server: paul-koop.org | Demozugang: gast/gast" 
+                   FontSize="11" Foreground="#999" HorizontalAlignment="Center" 
+                   VerticalAlignment="Bottom"/>
+    </Grid>
+</Window>

@@ -1,0 +1,153 @@
+<Window x:Class="DueskWPF.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DÜSK - Hauptansicht" Height="700" Width="1100"
+        WindowStartupLocation="CenterScreen" Background="#F5F5F5">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Sidebar -->
+        <Border Grid.Column="0" Background="#2C3E50">
+            <StackPanel>
+                <Border Background="#1A252F" Padding="20" Cursor="Hand"
+                        MouseLeftButtonDown="Logo_Click">
+                    <TextBlock Text="DÜSK" FontSize="28" FontWeight="Bold" 
+                               Foreground="White" HorizontalAlignment="Center"/>
+                </Border>
+                
+                <TextBlock Text="GRUPPEN" Foreground="#5D7A9A" 
+                           Margin="15,15,0,8" FontSize="11" FontWeight="SemiBold"/>
+                
+                <ListBox x:Name="GroupListBox" Background="Transparent" 
+                         BorderThickness="0" Foreground="White" 
+                         Margin="0,0,0,10" FontSize="14">
+                    <ListBox.Resources>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="15,10"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#1A252F"/>
+                                    <Setter Property="BorderThickness" Value="3,0,0,0"/>
+                                    <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#3D566E"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.Resources>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                
+                <Border Height="1" Background="#3D566E" Margin="15,0"/>
+                
+                <Button x:Name="LogoutButton" Content="🔓 Abmelden" 
+                        Background="#E74C3C" Foreground="White" 
+                        Margin="15,20" Padding="10" BorderThickness="0"
+                        Cursor="Hand" Click="LogoutButton_Click"
+                        FontWeight="SemiBold"/>
+            </StackPanel>
+        </Border>
+        
+        <!-- Main Content -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Toolbar -->
+            <Border Grid.Row="0" Background="White" BorderBrush="#E0E0E0" 
+                    BorderThickness="0,0,0,1" Padding="15,10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="SearchBox" Width="280" Padding="8,8" 
+                             BorderBrush="#DDD" BorderThickness="1"
+                             TextChanged="SearchBox_TextChanged"
+                             ToolTip="Suchen..."/>
+                    
+                    <Button x:Name="RefreshButton" Content="🔄 Aktualisieren" 
+                            Margin="10,0,0,0" Padding="10,8"
+                            Background="#F0F0F0" BorderThickness="0"
+                            Cursor="Hand" Click="RefreshButton_Click"/>
+                    
+                    <Button x:Name="GroupsButton" Content="👥 Gruppen" 
+                            Margin="10,0,0,0" Padding="10,8"
+                            Background="#F0F0F0" BorderThickness="0"
+                            Cursor="Hand" Click="GroupsButton_Click"/>
+                    
+                    <Button x:Name="TimeSeriesButton" Content="📈 Zeitreihe" 
+                            Margin="10,0,0,0" Padding="10,8"
+                            Background="#F0F0F0" BorderThickness="0"
+                            Cursor="Hand" Click="TimeSeriesButton_Click"/>
+                    
+                    <Button x:Name="NewProfileButton" Content="➕ Neues Profil" 
+                            Margin="10,0,0,0" Padding="10,8"
+                            Background="{StaticResource PrimaryBrush}" 
+                            Foreground="White" BorderThickness="0"
+                            Cursor="Hand" Click="NewProfileButton_Click"/>
+                </StackPanel>
+            </Border>
+            
+            <!-- Profile List -->
+            <ListBox x:Name="ProfileListBox" Grid.Row="1" Margin="15" 
+                     SelectionChanged="ProfileListBox_SelectionChanged"
+                     MouseDoubleClick="ProfileListBox_MouseDoubleClick">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" 
+                                Padding="12" Background="White">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" 
+                                               FontWeight="Bold" FontSize="15"/>
+                                    <TextBlock Text="{Binding Gruppename}" 
+                                               FontSize="12" Foreground="#666"/>
+                                </StackPanel>
+                                
+                                <TextBlock Grid.Column="1" Text="{Binding ProfilID}" 
+                                           FontSize="11" Foreground="#999" Margin="15,0"/>
+                                
+                                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                    <Button Content="👁️" Tag="view" 
+                                            Click="ProfileAction_Click" 
+                                            Margin="3" Padding="6" Cursor="Hand"
+                                            Background="#F0F0F0" BorderThickness="0"/>
+                                    <Button Content="✏️" Tag="edit" 
+                                            Click="ProfileAction_Click" 
+                                            Margin="3" Padding="6" Cursor="Hand"
+                                            Background="#F0F0F0" BorderThickness="0"/>
+                                    <Button Content="🗑️" Tag="delete" 
+                                            Click="ProfileAction_Click" 
+                                            Margin="3" Padding="6" Cursor="Hand"
+                                            Background="#FAA" BorderThickness="0"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            
+            <!-- Status Bar -->
+            <Border Grid.Row="2" Background="#F9F9F9" BorderBrush="#E0E0E0" 
+                    BorderThickness="0,1,0,0" Padding="15,8">
+                <TextBlock x:Name="StatusText" FontSize="12" Foreground="#666"/>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

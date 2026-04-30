@@ -1,0 +1,100 @@
+<Window x:Class="DueskWPF.Views.ProfileEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Profil bearbeiten" Height="750" Width="800"
+        WindowStartupLocation="CenterOwner" Background="#F5F5F5">
+    
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Basic Info -->
+        <Border Grid.Row="0" Background="White" Padding="15" Margin="0,0,0,15" CornerRadius="8">
+            <StackPanel>
+                <TextBlock Text="Profilinformationen" FontWeight="Bold" FontSize="16" Margin="0,0,0,15"/>
+                
+                <TextBlock Text="Name *" Margin="0,0,0,5"/>
+                <TextBox x:Name="NameBox" Margin="0,0,0,15" Padding="8"/>
+                
+                <TextBlock Text="Gruppe" Margin="0,0,0,5"/>
+                <ComboBox x:Name="GroupCombo" Margin="0,0,0,10" Padding="5" 
+                          SelectionChanged="GroupCombo_SelectionChanged"/>
+                
+                <StackPanel x:Name="NewGroupPanel" Visibility="Collapsed">
+                    <TextBlock Text="Neue Gruppe" Margin="0,5,0,5"/>
+                    <TextBox x:Name="NewGroupBox" Padding="8"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        
+        <!-- Tab Control -->
+        <Border Grid.Row="1" Background="White" Padding="0" Margin="0,0,0,15" CornerRadius="8">
+            <TabControl>
+                <TabItem Header="📝 Selbsteinschätzung (36 Items)">
+                    <ScrollViewer>
+                        <ItemsControl x:Name="SEItemsControl" Margin="10">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="10">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <RadioButton GroupName="SE" Content="1 - trifft nicht zu" 
+                                                             Tag="1" Margin="0,0,15,0" Checked="Rating_Checked"/>
+                                                <RadioButton GroupName="SE" Content="2 - trifft teilweise zu" 
+                                                             Tag="2" Margin="0,0,15,0" Checked="Rating_Checked"/>
+                                                <RadioButton GroupName="SE" Content="3 - trifft zu" 
+                                                             Tag="3" Margin="0,0,15,0" Checked="Rating_Checked"/>
+                                                <RadioButton GroupName="SE" Content="4 - trifft voll zu" 
+                                                             Tag="4" Checked="Rating_Checked"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </TabItem>
+                
+                <TabItem Header="👥 Fremdeinschätzung (36 Items)">
+                    <ScrollViewer>
+                        <ItemsControl x:Name="FEItemsControl" Margin="10">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="10">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <RadioButton GroupName="FE" Content="1 - trifft nicht zu" 
+                                                             Tag="1" Margin="0,0,15,0" Checked="Rating_Checked"/>
+                                                <RadioButton GroupName="FE" Content="2 - trifft teilweise zu" 
+                                                             Tag="2" Margin="0,0,15,0" Checked="Rating_Checked"/>
+                                                <RadioButton GroupName="FE" Content="3 - trifft zu" 
+                                                             Tag="3" Margin="0,0,15,0" Checked="Rating_Checked"/>
+                                                <RadioButton GroupName="FE" Content="4 - trifft voll zu" 
+                                                             Tag="4" Checked="Rating_Checked"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+        </Border>
+        
+        <!-- Buttons -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
+            <Button Content="Abbrechen" Width="100" Margin="0,0,10,0" Padding="8"
+                    Background="#F0F0F0" BorderThickness="0" Cursor="Hand" Click="CancelButton_Click"/>
+            <Button x:Name="SaveButton" Content="Speichern" Width="100" Padding="8"
+                    Background="{StaticResource PrimaryBrush}" Foreground="White" 
+                    BorderThickness="0" Cursor="Hand" Click="SaveButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
